@@ -9,7 +9,7 @@
 	<div class="container py-4">
 
 		<div class="card bg-light">
-			<div class="card-header" th:text="${titulo}">></div>
+			<div class="card-header" th:text="${titulo}"></div>
 
 			<div class="card-body">
 
@@ -31,7 +31,10 @@
 					</thead>
 					<tbody>
 						<tr th:each="cliente: ${clientes}">
-							<td th:text="${cliente.id}"></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{/clientes/ver/} + ${cliente.id}" th:text="${cliente.id}" ></a></td>
+							
+							
+							
 							<td th:text="${cliente.nome}"></td>
 							<td th:text="${cliente.apelido}"></td>
 							<td th:text="${cliente.email}"></td>

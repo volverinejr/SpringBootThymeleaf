@@ -13,24 +13,15 @@
 
 			<div class="card-body">
 
-
-				<!-- 
-		<div th:object="${cliente}" th:remove="tag">
-			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
-			</ul>
-		</div>
-		 -->
-
 				<form th:action="@{/clientes/form}" th:object="${cliente}"
-					method="post">
+					method="post" enctype="multipart/form-data">
 
 					<div class="form-group row">
 
-						<label class="col-sm-2 col-form-label">Nome</label>
+						<label for="nome" class="col-sm-2 col-form-label">Nome</label>
 
 						<div class="col-sm-6">
-							<input type="text" th:field="*{nome}" class="form-control"
+							<input type="text" name="nome" th:field="*{nome}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
@@ -38,9 +29,9 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Apelido</label>
+						<label for="apelido" class="col-sm-2 col-form-label">Apelido</label>
 						<div class="col-sm-6">
-							<input type="text" th:field="*{apelido}" class="form-control"
+							<input type="text" name="apelido" th:field="*{apelido}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('apelido')}" th:errors="*{apelido}"></small>
@@ -48,9 +39,9 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">E-mail</label>
+						<label for="email" class="col-sm-2 col-form-label">E-mail</label>
 						<div class="col-sm-6">
-							<input type="email" th:field="*{email}" class="form-control"
+							<input type="email" name="email" th:field="*{email}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
@@ -58,12 +49,19 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-2 col-form-label">Criado</label>
+						<label for="criadoEm" class="col-sm-2 col-form-label">Criado</label>
 						<div class="col-sm-6">
-							<input type="date" th:field="*{criadoEm}" class="form-control"
+							<input type="date" name="criadoEm" th:field="*{criadoEm}" class="form-control"
 								th:errorclass="'form-control alert-danger'" /> <small
 								class="form-text text-danger"
 								th:if="${#fields.hasErrors('criadoEm')}" th:errors="*{criadoEm}"></small>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="file" class="col-sm-2 col-form-label">Foto</label>
+						<div class="col-sm-6">
+							<input type="file" name="file" class="form-control" />
 						</div>
 					</div>
 
