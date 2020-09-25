@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,8 +16,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.NotFound;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,10 +55,12 @@ public class Cliente implements Serializable {
 	@Column(name = "criado_em")
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@NotFound
+	@NotNull
 	private Date criadoEm;
 
-	/*
-	 * @PrePersist private void PrePersist() { criadoEm = new Date(); }
-	 */
+	@PrePersist
+	private void PrePersist() {
+		criadoEm = new Date();
+	}
+
 }
