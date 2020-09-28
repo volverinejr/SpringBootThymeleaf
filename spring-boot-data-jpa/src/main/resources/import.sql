@@ -1,3 +1,4 @@
+/* populando clientes */
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Doralynne Sparry', 'Doralynne', 'dsparry0@sakura.ne.jp', '2019-04-08', '');
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Edie Schrinel', 'Edie', 'eschrinel1@bigcartel.com', '2019-02-14', '');
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Clayborn Gorrick', 'Clayborn', 'cgorrick2@is.gd', '2020-03-29', '');
@@ -8,3 +9,42 @@ insert into clientes (nome, apelido, email, criado_em, foto) values ('Mano Rucke
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Karlis Ollerhead', 'Karlis', 'kollerhead7@rambler.ru', '2019-12-26', '');
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Toiboid Brandon', 'Toiboid', 'tbrandon8@networkadvertising.org', '2019-08-16', '');
 insert into clientes (nome, apelido, email, criado_em, foto) values ('Terrijo Fussen', 'Terrijo', 'tfussen9@businesswire.com', '2019-10-17', '');
+
+/* populando produtos */
+insert into produtos (nome, preco, criado_em) values ('Wine - Kwv Chenin Blanc South', '74.59', '2019-09-13');
+insert into produtos (nome, preco, criado_em) values ('Beer - Heinekin', '45.77', '2019-02-08');
+insert into produtos (nome, preco, criado_em) values ('Pan Grease', '52.20', '2020-04-28');
+insert into produtos (nome, preco, criado_em) values ('Olives - Green, Pitted', '92.73', '2020-05-23');
+insert into produtos (nome, preco, criado_em) values ('Chambord Royal', '55.27', '2020-03-27');
+insert into produtos (nome, preco, criado_em) values ('Guava', '36.60', '2019-07-31');
+insert into produtos (nome, preco, criado_em) values ('Mushrooms - Black, Dried', '87.59', '2020-01-19');
+insert into produtos (nome, preco, criado_em) values ('Wine - Soave Folonari', '76.26', '2019-08-11');
+insert into produtos (nome, preco, criado_em) values ('Lamb - Whole, Fresh', '70.59', '2019-08-10');
+insert into produtos (nome, preco, criado_em) values ('Oil - Peanut', '40.52', '2019-10-29');
+insert into produtos (nome, preco, criado_em) values ('Rice - Jasmine Sented', '80.32', '2019-03-08');
+insert into produtos (nome, preco, criado_em) values ('Fish - Base, Bouillion', '78.78', '2020-04-08');
+insert into produtos (nome, preco, criado_em) values ('Buffalo - Tenderloin', '54.61', '2019-09-15');
+insert into produtos (nome, preco, criado_em) values ('Bulgar', '69.82', '2020-04-16');
+insert into produtos (nome, preco, criado_em) values ('Arizona - Green Tea', '98.84', '2019-06-29');
+insert into produtos (nome, preco, criado_em) values ('Bread - Triangle White', '70.44', '2019-07-24');
+insert into produtos (nome, preco, criado_em) values ('Milk - 2% 250 Ml', '31.74', '2019-06-22');
+insert into produtos (nome, preco, criado_em) values ('Bread - Pumpernickle, Rounds', '24.15', '2019-09-12');
+insert into produtos (nome, preco, criado_em) values ('Bread - Pain Au Liat X12', '72.96', '2019-06-03');
+insert into produtos (nome, preco, criado_em) values ('Lamb - Loin, Trimmed, Boneless', '46.06', '2019-12-05');
+
+
+/* populando a fatura */
+INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('1º Fatura', 'Fatura de teste', '2019-09-13', 1);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 2, 4);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 4, 3);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 6, 1);
+
+
+INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('2º Fatura', 'Mais uma Fatura pra testar', '2019-09-25', 1);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 1, 6);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 3, 7);
+
+
+INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('1º Fatura cliente 2', 'Fatura de teste do cliente 2', '2019-09-13', 2);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (3, 11, 2);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (3, 13, 8);

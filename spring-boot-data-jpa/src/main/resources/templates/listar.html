@@ -25,6 +25,7 @@
 							<th>Apelido</th>
 							<th>E-mail</th>
 							<th>Data Criação</th>
+							<th>Criar Fatura</th>
 							<th>Editar</th>
 							<th>Eliminar</th>
 						</tr>
@@ -39,10 +40,9 @@
 							<td th:text="${cliente.apelido}"></td>
 							<td th:text="${cliente.email}"></td>
 							<td th:text="${#dates.format(cliente.criadoEm, 'dd/MM/yyyy')}"></td>
-							<td><a class="btn btn-primary btn-xs"
-								th:href="@{/clientes/form/} + ${cliente.id}">Editar</a></td>
-							<td><a class="btn btn-danger btn-xs"
-								th:href="@{/clientes/} + ${cliente.id}">Eliminar</a></td>
+							<td><a class="btn btn-success btn-xs" th:href="@{/fatura/form/} + ${cliente.id}">Criar Fatura</a></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{/clientes/form/} + ${cliente.id}">Editar</a></td>
+							<td><a class="btn btn-danger btn-xs" th:href="@{/clientes/} + ${cliente.id}">Eliminar</a></td>
 						</tr>
 					</tbody>
 				</table>

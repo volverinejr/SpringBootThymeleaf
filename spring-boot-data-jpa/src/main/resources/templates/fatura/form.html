@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}">></div>
+
+			<div class="card-body">
+			
+				<h4 class="card-title"><a class="btn btn-light btn-xs" th:href="@{/clientes/ver/} + ${fatura.cliente.id}">&laquo; Voltar</a></h4>
+
+				<form th:action="@{/fatura/form/}" th:object="${fatura}" method="post">
+
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">Cliente</label>
+						<div class="col-sm-6">
+							<input type="text" th:value="${fatura.cliente.nome}" class="form-control" disabled="disabled" />
+						</div>
+					</div>
+
+
+
+					<div class="form-group row">
+						<label for="descricao" class="col-sm-2 col-form-label">Descrição</label>
+						<div class="col-sm-6">
+							<input type="text" name="descricao" th:field="*{descricao}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></small>
+						</div>
+					</div>
+					
+
+					
+					<div class="form-group row">
+						<label for="observacao" class="col-sm-2 col-form-label">Observação</label>
+						<div class="col-sm-6">
+							<textarea  name="observacao" th:field="*{observacao}"
+								class="form-control" th:errorclass="'form-control alert-danger'" ></textarea>
+								
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}"></small>
+						</div>
+					</div>
+					
+
+
+					<div class="form-group row">
+						<label for="buscar_produto" class="col-sm-2 col-form-label">Buscar Produto</label>
+						<div class="col-sm-6">
+							<input type="text" name="buscar_produto"  id="buscar_produto" class="form-control" />
+						</div>
+					</div>
+					
+
+
+
+
+					<div class="form-group">
+						<div class="col-sm-6">
+							<input type="submit" value="Criar Fatura"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
