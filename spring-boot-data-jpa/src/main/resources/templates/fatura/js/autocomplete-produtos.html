@@ -4,8 +4,41 @@
 <body>
 
 
+	<script type="text/javascript" th:fragment="javascript">
+		$(document).ready(function() {
 
+			$("#buscar_produto").autocomplete({
+				minLength : 2,
 
-<script type="text/javascript" th:fragment="javascrip"></script>
+				source : function(request, response) {
+					$.ajax({
+						url : "/fatura/carregar-produtos/" + request.term,
+						dataType : "json",
+						data : {
+							term : request.term
+						},
+						success : function(data) {
+							response($.map(data, function(item) {
+								return {
+									value : item.id,
+									label : item.nome,
+									preco : item.preco
+								};
+							}));
+						},
+						error : function(result) {
+							alert("Error");
+						}
+					});
+				},
+				select : function(event, ui) {
+					$("#buscar_produto").val(ui.item.label);
+
+					return false;
+				}
+			});
+		});
+	</script>
+
 </body>
 </html>

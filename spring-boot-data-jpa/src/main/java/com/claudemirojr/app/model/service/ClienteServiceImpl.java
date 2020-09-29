@@ -9,13 +9,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.claudemirojr.app.model.entity.Cliente;
+import com.claudemirojr.app.model.entity.Produto;
 import com.claudemirojr.app.model.repository.ClienteRepository;
+import com.claudemirojr.app.model.repository.ProdutoRepository;
 
 @Service
 public class ClienteServiceImpl implements ClienteService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 
 	@Override
 	@Transactional(readOnly = true)
@@ -46,6 +51,12 @@ public class ClienteServiceImpl implements ClienteService {
 	@Transactional
 	public void deleteById(Long id) {
 		clienteRepository.deleteById(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Produto> findByNomeContaining(String nome) {
+		return produtoRepository.findByNomeContaining(nome);
 	}
 
 
