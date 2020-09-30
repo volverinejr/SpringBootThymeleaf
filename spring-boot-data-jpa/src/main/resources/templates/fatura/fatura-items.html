@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<body>
+
+
+	<table th:fragment="itensFatura" class="d-none">
+
+		<tbody id="linhaItemFatura">
+			<tr id="row_{ID}">
+				<td class="d-none"><input type="hidden" value="{ID}" name="item_id[]" /></td>
+				<td>{NOME}</td>
+				<td>{PRECO}</td>
+				<td><input type="number" min="0" value="1" name="quantidade[]" id="quantidade_{ID}" class="form-control col-sm-4" onchange="itemsHelper.calcularImporte({ID}, {PRECO}, this.value);" /></td>
+				<td><span id="total_importe_{ID}">0</span></td>
+				<td><a href="#" class="btn btn-danger btn-xs" onclick="itemsHelper.removerLinhaFatura({ID});">x</a></td>
+			</tr>
+		</tbody>
+
+	</table>
+
+</body>
+</html>

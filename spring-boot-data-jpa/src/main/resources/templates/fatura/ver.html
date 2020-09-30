@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<meta charset="UTF-8" />
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a class="btn btn-primary btn-xs" th:href="@{/clientes/ver/} + ${fatura.cliente.id}">&laquo; Voltar</a>
+				</h4>
+				
+
+				<ul class="list-group my-4">
+					<li class="list-group-item list-group-item-primary" th:text="'Dados do Cliente'"></li>
+					<li class="list-group-item" th:text="${fatura.cliente.nome} + ' ' + ${fatura.cliente.apelido}"></li>
+				</ul>
+
+
+				<ul class="list-group my-4">
+					<li class="list-group-item list-group-item-success" th:text="'Dados da Fatura'"></li>
+					<li class="list-group-item" th:text="'Id: ' + ${fatura.id}"></li>
+					<li class="list-group-item" th:text="'Descrição: ' + ${fatura.descricao}"></li>
+					<li class="list-group-item" th:text="'Observação: ' + ${fatura.observacao}"></li>
+					<li class="list-group-item" th:text="'Criado em: '  + ${#dates.format(fatura.criadoEm, 'dd/MM/yyyy')}"></li>
+				</ul>
+				
+				<table class="table table-striped table-hover table-bordered my-4">
+					<thead>
+						<tr>
+							<th>Produto</th>
+							<th>Preço</th>
+							<th>Quantidade</th>
+							<th>Total</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="linha: ${fatura.items}">
+							<td th:text="${linha.produto.nome}"></td>
+							<td th:text="${linha.produto.preco}"></td>
+							<td th:text="${linha.quantidade}"></td>
+							<td th:text="${linha.calcularTotal()}"></td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<h5 class="float-right">Total: <span th:text="${fatura.total}" class="badge badge-secondary"></span> </h5>
+				
+				<div class="card border-info mb-4" style="max-width: 20rem;" >
+					<div class="card-header">Observação</div>
+					<div class="card-body">
+						<p class="card-text" th:text="${fatura.observacao}"></p>
+					</div>
+				</div>
+
+
+			</div>
+
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+
+</body>
+</html>

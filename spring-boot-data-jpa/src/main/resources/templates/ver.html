@@ -40,14 +40,20 @@
 							<th>Descrição</th>
 							<th>Criado em</th>
 							<th>Total</th>
+							<th>Ver</th>
+							<th>Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="fatura: ${cliente.faturas}">
-							<th th:text="${fatura.id}"></th>
-							<th th:text="${fatura.descricao}"></th>
-							<th th:text="${#dates.format(fatura.criadoEm, 'dd/MM/yyyy')}"></th>
-							<th th:text="${#numbers.formatCurrency(fatura.total)}"></th>
+							<td th:text="${fatura.id}"></td>
+							<td th:text="${fatura.descricao}"></td>
+							<td th:text="${#dates.format(fatura.criadoEm, 'dd/MM/yyyy')}"></td>
+							<td th:text="${#numbers.formatCurrency(fatura.total)}"></td>
+							<td><a class="btn btn-primary btn-xs" th:href="@{/fatura/ver/} + ${fatura.id}">Detalhe</a></th>
+							
+							<td><a class="btn btn-danger btn-xs" th:href="@{/fatura/eliminar/} + ${fatura.id}">X</a></th>
+							
 						</tr>
 					</tbody>
 				</table>

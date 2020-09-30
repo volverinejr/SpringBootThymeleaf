@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.claudemirojr.app.model.entity.Cliente;
+import com.claudemirojr.app.model.entity.Fatura;
 import com.claudemirojr.app.model.entity.Produto;
 import com.claudemirojr.app.model.repository.ClienteRepository;
+import com.claudemirojr.app.model.repository.FaturaRepository;
 import com.claudemirojr.app.model.repository.ProdutoRepository;
 
 @Service
@@ -21,6 +23,12 @@ public class ClienteServiceImpl implements ClienteService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private FaturaRepository faturaRepository;
+	
+	
+	
 
 	@Override
 	@Transactional(readOnly = true)
@@ -44,7 +52,7 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	@Transactional(readOnly = true)
 	public Cliente findById(Long id) {
-		return clienteRepository.findById(id).get();
+		return clienteRepository.findById(id).orElse(null);
 	}
 
 	@Override
@@ -57,6 +65,30 @@ public class ClienteServiceImpl implements ClienteService {
 	@Transactional(readOnly = true)
 	public List<Produto> findByNomeContaining(String nome) {
 		return produtoRepository.findByNomeContaining(nome);
+	}
+
+	@Override
+	@Transactional
+	public void saveFatura(Fatura fatura) {
+		faturaRepository.save(fatura);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Produto findProdutoById(Long id) {
+		return produtoRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Fatura findFaturaById(Long id) {
+		return faturaRepository.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public void deleteFaturaById(Long id) {
+		faturaRepository.deleteById(id);
 	}
 
 

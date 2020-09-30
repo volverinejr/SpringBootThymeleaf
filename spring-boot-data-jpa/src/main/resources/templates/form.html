@@ -22,9 +22,8 @@
 
 						<div class="col-sm-6">
 							<input type="text" name="nome" th:field="*{nome}" class="form-control"
-								th:errorclass="'form-control alert-danger'" /> <small
-								class="form-text text-danger"
-								th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
+								th:errorclass="'form-control alert-danger'" /> 
+								<small class="form-text text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></small>
 						</div>
 					</div>
 

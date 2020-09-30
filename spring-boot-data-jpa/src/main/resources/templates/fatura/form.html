@@ -30,10 +30,8 @@
 					<div class="form-group row">
 						<label for="descricao" class="col-sm-2 col-form-label">Descrição</label>
 						<div class="col-sm-6">
-							<input type="text" name="descricao" th:field="*{descricao}"
-								class="form-control" th:errorclass="'form-control alert-danger'" />
-							<small class="form-text text-danger"
-								th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></small>
+							<input type="text" name="descricao" th:field="*{descricao}" class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}"></small>
 						</div>
 					</div>
 					
@@ -42,11 +40,8 @@
 					<div class="form-group row">
 						<label for="observacao" class="col-sm-2 col-form-label">Observação</label>
 						<div class="col-sm-6">
-							<textarea  name="observacao" th:field="*{observacao}"
-								class="form-control" th:errorclass="'form-control alert-danger'" ></textarea>
-								
-							<small class="form-text text-danger"
-								th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}"></small>
+							<textarea  name="observacao" th:field="*{observacao}" class="form-control" th:errorclass="'form-control alert-danger'" ></textarea>
+							<small class="form-text text-danger" th:if="${#fields.hasErrors('observacao')}" th:errors="*{observacao}"></small>
 						</div>
 					</div>
 					
@@ -58,6 +53,24 @@
 							<input type="text" name="buscar_produto"  id="buscar_produto" class="form-control" />
 						</div>
 					</div>
+					
+					<table th:replace="fatura/fatura-items :: itensFatura"></table>
+					
+					<table id="carregarItemProdutos" class="table table-sm table-striped table-houver">
+						<thead>
+							<tr>
+								<th>Nome</th>
+								<th>Preço</th>
+								<th>Quantidade</th>
+								<th>Total</th>
+								<th>Remover</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+					
+					<h5>Total <span class="badge badge-secondary" id="gran_total">0</span></h5>
 					
 
 

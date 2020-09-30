@@ -5,39 +5,118 @@
 
 
 	<script type="text/javascript" th:fragment="javascript">
-		$(document).ready(function() {
+		$(document).ready(
+				function() {
 
-			$("#buscar_produto").autocomplete({
-				minLength : 2,
+					$("#buscar_produto").autocomplete(
+							{
+								minLength : 2,
 
-				source : function(request, response) {
-					$.ajax({
-						url : "/fatura/carregar-produtos/" + request.term,
-						dataType : "json",
-						data : {
-							term : request.term
-						},
-						success : function(data) {
-							response($.map(data, function(item) {
-								return {
-									value : item.id,
-									label : item.nome,
-									preco : item.preco
-								};
-							}));
-						},
-						error : function(result) {
-							alert("Error");
-						}
+								source : function(request, response) {
+									$.ajax({
+										url : "/fatura/carregar-produtos/"
+												+ request.term,
+										dataType : "json",
+										data : {
+											term : request.term
+										},
+										success : function(data) {
+											response($.map(data,
+													function(item) {
+														return {
+															value : item.id,
+															label : item.nome,
+															preco : item.preco
+														};
+													}));
+										},
+										error : function(result) {
+											alert("Error");
+										}
+									});
+								},
+								select : function(event, ui) {
+									//$("#buscar_produto").val(ui.item.label);
+
+									if (itemsHelper
+											.existeProduto(ui.item.value)) {
+										itemsHelper.incrementQuantidade(
+												ui.item.value, ui.item.preco);
+										return false;
+									}
+
+									var linha = $("#linhaItemFatura").html();
+
+									linha = linha.replace(/{ID}/g,
+											ui.item.value);
+									linha = linha.replace(/{NOME}/g,
+											ui.item.label);
+									linha = linha.replace(/{PRECO}/g,
+											ui.item.preco);
+
+									$("#carregarItemProdutos tbody").append(
+											linha);
+
+									itemsHelper.calcularImporte(ui.item.value,
+											ui.item.preco, 1);
+
+									return false;
+								}
+							});
+
+					$("form").submit(function() {
+						$("#linhaItemFatura").remove();
+						
+						return;
 					});
-				},
-				select : function(event, ui) {
-					$("#buscar_produto").val(ui.item.label);
 
-					return false;
-				}
-			});
-		});
+				});
+
+		var itemsHelper = {
+
+			calcularImporte : function(id, preco, quantidade) {
+				var valorTotal = parseFloat(preco) * parseInt(quantidade);
+				$("#total_importe_" + id).html(valorTotal);
+
+				this.calcularGranTotal();
+			},
+
+			existeProduto : function(id) {
+
+				var resultado = false;
+
+				$('input[name="item_id[]"]').each(function() {
+					if (parseInt(id) == parseInt($(this).val())) {
+						resultado = true;
+					}
+				});
+
+				return resultado;
+			},
+
+			incrementQuantidade : function(id, preco) {
+				var quantidade = $("#quantidade_" + id).val() ? parseInt($(
+						"#quantidade_" + id).val()) : 0;
+				$("#quantidade_" + id).val(++quantidade);
+				this.calcularImporte(id, preco, quantidade);
+			},
+
+			removerLinhaFatura : function(id) {
+				$("#row_" + id).remove();
+				this.calcularGranTotal();
+			},
+
+			calcularGranTotal : function() {
+				var total = 0;
+
+				$('span[id^="total_importe_"]').each(function() {
+					total += parseFloat($(this).html());
+				});
+
+				$('#gran_total').html(total);
+			}
+
+		}
 	</script>
 
 </body>
