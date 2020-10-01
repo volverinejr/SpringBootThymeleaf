@@ -35,7 +35,8 @@ public class FaturaController {
 	
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
-		Fatura fatura = clienteService.findFaturaById(id);
+		//Fatura fatura = clienteService.findFaturaById(id);
+		Fatura fatura = clienteService.fetchFaturaByIdWithClienteWithItemFaturaWithProduto(id);
 		
 		
 		if (fatura == null) {

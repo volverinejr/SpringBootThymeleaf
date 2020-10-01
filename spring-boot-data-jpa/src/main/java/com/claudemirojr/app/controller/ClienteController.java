@@ -149,7 +149,8 @@ public class ClienteController {
 
 	@GetMapping("/ver/{id}")
 	public String ver(@PathVariable Long id, Model model, RedirectAttributes flash) {
-		Cliente cliente = clienteService.findById(id);
+		//Cliente cliente = clienteService.findById(id);
+		Cliente cliente = clienteService.fetchClienteByIdWithFatura(id);
 
 		model.addAttribute("titulo", "Detalhe do Cliente: " + cliente.getNome());
 		model.addAttribute("cliente", cliente);

@@ -91,5 +91,17 @@ public class ClienteServiceImpl implements ClienteService {
 		faturaRepository.deleteById(id);
 	}
 
+	@Override
+	@Transactional(readOnly = true)
+	public Fatura fetchFaturaByIdWithClienteWithItemFaturaWithProduto(Long id) {
+		return faturaRepository.fetchByIdWithClienteWithItemFaturaWithProduto(id);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente fetchClienteByIdWithFatura(Long id) {
+		return clienteRepository.fetchByIdWithFatura(id);
+	}
+
 
 }

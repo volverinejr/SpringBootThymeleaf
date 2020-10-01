@@ -30,5 +30,9 @@ public interface ClienteService {
 	public Fatura findFaturaById(Long id);
 	
 	public void deleteFaturaById(Long id);
+	
+	public Fatura fetchFaturaByIdWithClienteWithItemFaturaWithProduto(Long id);
+	
+	public Cliente fetchClienteByIdWithFatura(Long id);  
 
 }
