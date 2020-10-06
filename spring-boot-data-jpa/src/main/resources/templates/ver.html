@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <meta charset="UTF-8" />
 <head th:replace="layout/layout :: head"></head>
 <body>
@@ -14,7 +14,7 @@
 			<div class="card-body">
 				
 			
-				<h4 class="card-title"><a class="btn btn-primary btn-xs" th:href="@{/fatura/form/} + ${cliente.id}">Criar Fatura</a></h4>
+				<h4 class="card-title"><a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-xs" th:href="@{/fatura/form/} + ${cliente.id}">Criar Fatura</a></h4>
 			
 				<img th:if="${#strings.length(cliente.foto) > 0}"
 					class="img-thumbnail rounded float-left" style="max-width: 25%;"
@@ -40,8 +40,8 @@
 							<th>Descrição</th>
 							<th>Criado em</th>
 							<th>Total</th>
-							<th>Ver</th>
-							<th>Eliminar</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Ver</th>
+							<th sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,9 +50,9 @@
 							<td th:text="${fatura.descricao}"></td>
 							<td th:text="${#dates.format(fatura.criadoEm, 'dd/MM/yyyy')}"></td>
 							<td th:text="${#numbers.formatCurrency(fatura.total)}"></td>
-							<td><a class="btn btn-primary btn-xs" th:href="@{/fatura/ver/} + ${fatura.id}">Detalhe</a></th>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-primary btn-xs" th:href="@{/fatura/ver/} + ${fatura.id}">Detalhe</a></th>
 							
-							<td><a class="btn btn-danger btn-xs" th:href="@{/fatura/eliminar/} + ${fatura.id}">X</a></th>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a class="btn btn-danger btn-xs" th:href="@{/fatura/eliminar/} + ${fatura.id}">X</a></th>
 							
 						</tr>
 					</tbody>

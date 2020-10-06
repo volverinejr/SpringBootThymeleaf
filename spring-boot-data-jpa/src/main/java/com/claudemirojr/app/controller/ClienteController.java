@@ -5,14 +5,24 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,10 +51,37 @@ public class ClienteController {
 	
 	private final static String UPLOADS_FOLDER = "uploads";
 
-	@GetMapping("/listar")
-	public String listar(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
-			Model model) {
+	@GetMapping(value = { "/listar", "/", "" })
+	public String listar(
+			@RequestParam(defaultValue = "0") int page, 
+			@RequestParam(defaultValue = "5") int size,
+			Model model,
+			Authentication authentication,
+			HttpServletRequest request) {
+		
 
+		if ( authentication != null ) {
+			System.out.println( ">>>>>>>>>>> CLIENTE: " + authentication.getName() + " <<<<<<<<<<<<<<<<");
+		}
+		
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		if ( auth != null ) {
+			System.out.println( ">>>>>>>>>>> CLIENTE: " + auth.getName() + " <<<<<<<<<<<<<<<<");
+		}
+		
+		
+		SecurityContextHolderAwareRequestWrapper securityContex = new SecurityContextHolderAwareRequestWrapper(request, "ROLE_");
+		if ( securityContex.isUserInRole("ADMIN") ) {
+			System.out.println( ">>>>>>>>>>> CLIENTE: " + auth.getName() + " <<<<<<<<<<<<<<<<");
+		}
+		
+		if ( request.isUserInRole("ROLE_ADMIN") ) {
+			System.out.println( ">>>>>>>>>>> CLIENTE: " + auth.getName() + " <<<<<<<<<<<<<<<<");
+		}
+
+		
+		
 		Pageable pageable = PageRequest.of(page, size);
 
 		Page<Cliente> clientes = clienteService.findAll(pageable);
@@ -58,6 +95,7 @@ public class ClienteController {
 		return "listar";
 	}
 
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/form")
 	public String criar(Model model) {
 		Cliente cliente = new Cliente();
@@ -118,6 +156,8 @@ public class ClienteController {
 		return "redirect:listar";
 	}
 
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
 	@GetMapping("/form/{id}")
 	public String editar(@PathVariable Long id, Model model) {
 		Cliente cliente = clienteService.findById(id);
@@ -156,6 +196,34 @@ public class ClienteController {
 		model.addAttribute("cliente", cliente);
 
 		return "ver";
+	}
+	
+	
+	
+	private boolean hasRole(String role) {
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context == null) {
+			return false;
+		}
+		
+		Authentication auth = context.getAuthentication();
+		if (auth == null) {
+			return false;
+		}
+		
+		Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+		
+		return authorities.contains(new SimpleGrantedAuthority(role));
+		
+		/*
+		for (GrantedAuthority authority: authorities) {
+			if (role.equals(authority.getAuthority())) {
+				return true;
+			}
+		}
+		
+		return false;
+		*/
 	}
 
 	/*

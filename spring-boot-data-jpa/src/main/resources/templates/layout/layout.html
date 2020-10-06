@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
 <meta charset="UTF-8" />
@@ -31,13 +32,34 @@
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/clientes/listar}">Clientes</a></li>
 				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-primary" th:href="@{/login}">Entrar</a></li>
+
+					<li sec:authorize="isAuthenticated()" class="dropdown show">
+						<a class="btn btn-outline-primary dropdown-toggle" href="#"
+							role="button" id="dropdownMenuLink" data-toggle="dropdown"
+							aria-haspopup="true" aria-expanded="false"><span sec:authentication="name"></span></a>
+
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							<form id="logoutForm" th:action="@{/logout}" method="post">
+								<button class="dropdown-item" onclick="document.getElementById('logoutForm').submit();" type="submit">Sair</button>
+							</form>
+							
+						</div>
+					</li>
+				</ul>
 			</div>
 		</nav>
 
-		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-		<div class="alert alert-danger" th:if="${danger != null}" th:text="${danger}"></div>
-		<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${danger != null}"
+			th:text="${danger}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
 	</header>
 
 	<div class="container"></div>
@@ -45,6 +67,11 @@
 	<footer th:fragment="footer" class="container">
 		<hr />
 		<img alt="logo spring boot" th:src="@{/imagens/spring.png}">
+		<p sec:authorize="isAuthenticated()">
+			Usuaário Logado: <span sec:authentication="name"></span> | Roles: <span	sec:authentication="principal.authorities"></span>
+		</p>
+
+
 		<p>
 			Powered by <a href="https://projects.spring.io/spring-boot/">Spring
 				Boot</a> y <a href="http://www.thymeleaf.org">Thymeleaf</a>.
@@ -52,8 +79,10 @@
 
 
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		<script th:src="@{/js/jquery-ui.min.js}"></script>
 
 	</footer>
