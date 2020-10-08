@@ -58,7 +58,7 @@ public class Fatura implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	private Cliente cliente;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true )
 	@JoinColumn(name = "fatura_id")
 	private List<ItemFatura> items = new ArrayList<ItemFatura>();
 

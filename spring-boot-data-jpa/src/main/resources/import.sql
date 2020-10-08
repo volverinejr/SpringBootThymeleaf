@@ -33,18 +33,29 @@ insert into produtos (nome, preco, criado_em) values ('Bread - Pain Au Liat X12'
 insert into produtos (nome, preco, criado_em) values ('Lamb - Loin, Trimmed, Boneless', '46.06', '2019-12-05');
 
 
-/* populando a fatura */
-INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('1º Fatura', 'Fatura de teste', '2019-09-13', 1);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 2, 4);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 4, 3);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 6, 1);
+
+/* Populando as faturas */
+INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('1º Fatura', 'Primeira Fatura pra testar', '2019-09-25', 1);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 1, 6);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (1, 3, 7);
 
 
-INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('2º Fatura', 'Mais uma Fatura pra testar', '2019-09-25', 1);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 1, 6);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 3, 7);
+INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('2º Fatura cliente 2', 'Fatura de teste do cliente 2', '2019-09-13', 2);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 11, 2);
+INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (2, 13, 8);
 
 
-INSERT INTO faturas ( descricao, observacao, criado_em, cliente_id ) VALUES ('1º Fatura cliente 2', 'Fatura de teste do cliente 2', '2019-09-13', 2);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (3, 11, 2);
-INSERT INTO faturas_items ( fatura_id, produto_id, quantidade ) VALUES (3, 13, 8);
+
+
+
+
+
+/* Populando cliente */
+INSERT INTO users (username, password, enabled) values ('Miro', '$2a$10$gk.EtwV8HuqgvIqkSjOngOsN6utSYg1i.zNFEAeCli1jTCOe8IZ8a', 1);
+INSERT INTO users (username, password, enabled) values ('Admin', '$2a$10$PmCDNH931fDM0RJqRWVgmeoNrFVc.iujQ7x8/gyys1dSBi6GxqmIW', 1);
+
+
+insert into authorities (user_id, authority) values (1, 'ROLE_USER');
+insert into authorities (user_id, authority) values (2, 'ROLE_ADMIN');
+insert into authorities (user_id, authority) values (2, 'ROLE_USER');
+
